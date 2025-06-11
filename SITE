@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Revolution - Міні-курси з Штучного Інтелекту</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(64, 224, 208, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Header */
+        .header {
+            padding: 15px 0;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(45deg, #40e0d0, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(28px, 8vw, 80px);
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #40e0d0, #ff6b6b, #4facfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s infinite alternate;
+            line-height: 1.2;
+        }
+
+        @keyframes glow {
+            0% { filter: brightness(1); }
+            100% { filter: brightness(1.2); }
+        }
+
+        .hero p {
+            font-size: clamp(16px, 4vw, 24px);
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Futuristic Buttons */
+        .btn {
+            position: relative;
+            display: inline-block;
+            padding: 16px 32px;
+            background: linear-gradient(45deg, #40e0d0, #4facfe);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            margin: 8px;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(64, 224, 208, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Course Cards */
+        .courses {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(32px, 6vw, 48px);
+            font-weight: 800;
+            margin-bottom: 50px;
+            background: linear-gradient(45deg, #40e0d0, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .course-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #40e0d0, #4facfe, #ff6b6b);
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(64, 224, 208, 0.3);
+        }
+
+        .course-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 25px;
+            background: linear-gradient(45deg, #40e0d0, #4facfe);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .course-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #40e0d0;
+        }
+
+        .course-description {
+            font-size: 14px;
+            margin-bottom: 25px;
+            opacity: 0.8;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .course-features {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .course-features li {
+            padding: 6px 0;
+            position: relative;
+            padding-left: 25px;
+            font-size: 14px;
+        }
+
+        .course-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #40e0d0;
+            font-weight: bold;
+        }
+
+        .course-price {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .price-old {
+            font-size: 16px;
+            text-decoration: line-through;
+            opacity: 0.6;
+            margin-right: 10px;
+        }
+
+        .price-new {
+            font-size: 32px;
+            font-weight: 800;
+            color: #ff6b6b;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 60px 0;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 30px 15px;
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #40e0d0;
+        }
+
+        .feature-text {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Course Selector */
+        .course-selector {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px 20px;
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        .selector-title {
+            font-size: clamp(24px, 5vw, 32px);
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #40e0d0;
+        }
+
+        .course-options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .course-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .course-option.selected {
+            border-color: #40e0d0;
+            background: rgba(64, 224, 208, 0.1);
+        }
+
+        .course-option:hover {
+            border-color: #40e0d0;
+            transform: translateY(-2px);
+        }
+
+        .course-option h4 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #40e0d0;
+        }
+
+        .course-option p {
+            font-size: 14px;
+            margin-bottom: 8px;
+            opacity: 0.8;
+        }
+
+        .course-option strong {
+            font-size: 16px;
+            color: #ff6b6b;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 60px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(64, 224, 208, 0.1) 0%, rgba(79, 172, 254, 0.1) 100%);
+        }
+
+        .cta h2 {
+            font-size: clamp(28px, 6vw, 48px);
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #40e0d0, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .cta p {
+            font-size: clamp(16px, 4vw, 20px);
+            margin-bottom: 30px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.8;
+        }
+
+        .footer p {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .course-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .course-card {
+                padding: 25px 15px;
+            }
+            
+            .hero {
+                padding: 40px 0;
+            }
+            
+            .courses, .features, .cta {
+                padding: 40px 0;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                padding: 18px 20px;
+                font-size: 16px;
+            }
+            
+            .btn-container {
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto;
+            }
+
+            .course-options {
+                width: 100%;
+            }
+
+            .course-option {
+                max-width: 100%;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .feature-item {
+                padding: 25px 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 24px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .course-title {
+                font-size: 20px;
+            }
+            
+            .course-description {
+                font-size: 13px;
+            }
+            
+            .btn {
+                font-size: 15px;
+                padding: 16px 20px;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">AI Revolution</div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero fade-in">
+            <div class="container">
+                <h1>Опануйте ШІ за 7 днів</h1>
+                <p>Практичні міні-курси зі штучного інтелекту від експертів. Вивчайте у своєму темпі та застосовуйте знання вже сьогодні!</p>
+                <div class="btn-container">
+                    <a href="#courses" class="btn pulse">Обрати курс</a>
+                    <a href="#features" class="btn btn-secondary">Дізнатися більше</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="courses" class="courses">
+            <div class="container">
+                <h2 class="section-title">Наші курси</h2>
+                <div class="course-grid">
+                    <div class="course-card">
+                        <div class="course-icon">🤖</div>
+                        <h3 class="course-title">ШІ для початківців</h3>
+                        <p class="course-description">Познайомтеся з основами штучного інтелекту та машинного навчання</p>
+                        <ul class="course-features">
+                            <li>7 інтерактивних уроків</li>
+                            <li>Практичні завдання</li>
+                            <li>Сертифікат після закінчення</li>
+                            <li>Підтримка наставника</li>
+                            <li>Доступ на 6 місяців</li>
+                        </ul>
+                        <div class="course-price">
+                            <span class="price-old">$79</span>
+                            <span class="price-new">$49</span>
+                        </div>
+                        <button class="btn" onclick="selectCourse('beginner', 49)">Купити курс</button>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-icon">⚡</div>
+                        <h3 class="course-title">ChatGPT Майстер</h3>
+                        <p class="course-description">Станьте експертом у використанні ChatGPT для роботи та творчості</p>
+                        <ul class="course-features">
+                            <li>10 детальних уроків</li>
+                            <li>50+ готових промптів</li>
+                            <li>Бонусні матеріали</li>
+                            <li>Групові дзвінки</li>
+                            <li>Довічний доступ</li>
+                        </ul>
+                        <div class="course-price">
+                            <span class="price-old">$99</span>
+                            <span class="price-new">$69</span>
+                        </div>
+                        <button class="btn" onclick="selectCourse('chatgpt', 69)">Купити курс</button>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-icon">🎨</div>
+                        <h3 class="course-title">ШІ для творчості</h3>
+                        <p class="course-description">Створюйте вражаючий контент за допомогою ШІ: від зображень до музики</p>
+                        <ul class="course-features">
+                            <li>12 творчих уроків</li>
+                            <li>Робота з Midjourney, DALL-E</li>
+                            <li>Створення відео за допомогою ШІ</li>
+                            <li>Портфоліо проектів</li>
+                            <li>Комерційне використання</li>
+                        </ul>
+                        <div class="course-price">
+                            <span class="price-old">$129</span>
+                            <span class="price-new">$89</span>
+                        </div>
+                        <button class="btn" onclick="selectCourse('creative', 89)">Купити курс</button>
+                    </div>
+                </div>
+
+                <div class="course-selector">
+                    <h3 class="selector-title">Або оберіть комплект курсів</h3>
+                    <div class="course-options">
+                        <div class="course-option" onclick="selectBundle('starter')">
+                            <h4>Стартовий пакет</h4>
+                            <p>2 будь-які курси</p>
+                            <strong>$99 замість $118</strong>
+                        </div>
+                        <div class="course-option" onclick="selectBundle('complete')">
+                            <h4>Повний пакет</h4>
+                            <p>Усі 3 курси</p>
+                            <strong>$149 замість $207</strong>
+                        </div>
+                    </div>
+                    <button id="bundle-btn" class="btn" style="display: none;">Купити обраний пакет</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="section-title">Чому обирають нас</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <span class="feature-icon">🎯</span>
+                        <h3 class="feature-title">Практичний підхід</h3>
+                        <p class="feature-text">Кожен урок містить реальні кейси та застосовні техніки</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">⚡</span>
+                        <h3 class="feature-title">Швидкий результат</h3>
+                        <p class="feature-text">Перші навички ви отримаєте вже після першого уроку</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">👥</span>
+                        <h3 class="feature-title">Підтримка експертів</h3>
+                        <p class="feature-text">Наставники з 5+ років досвіду в галузі ШІ</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📱</span>
+                        <h3 class="feature-title">Зручна платформа</h3>
+                        <p class="feature-text">Навчайтеся з будь-якого пристрою у зручний час</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🏆</span>
+                        <h3 class="feature-title">Сертифікація</h3>
+                        <p class="feature-text">Отримайте офіційний сертифікат для портфоліо</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">💰</span>
+                        <h3 class="feature-title">Гарантія повернення</h3>
+                        <p class="feature-text">30 днів на повернення коштів без зайвих питань</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="container">
+                <h2>Почніть свій шлях у ШІ вже сьогодні!</h2>
+                <p>Приєднуйтеся до 5000+ студентів, які вже змінили свою кар'єру за допомогою ШІ</p>
+                <div class="btn-container">
+                    <a href="#courses" class="btn pulse" style="font-size: 18px; padding: 20px 40px;">Обрати курс зараз</a>
+                </div>
+                <p style="margin-top: 20px; opacity: 0.8; font-size: 14px;">💳 Оплата карткою • 🔐 Безпечна угода • 📞 Підтримка 24/7</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 AI Revolution. Усі права захищені.</p>
+            <p>Зробіть крок у майбутнє разом з нами!</p>
+        </div>
+    </footer>
+
+    <script>
+        let selectedCourse = null;
+        let selectedBundle = null;
+
+        function selectCourse(courseType, price) {
+            selectedCourse = { type: courseType, price: price };
+            showPurchaseModal(courseType, price);
+        }
+
+        function selectBundle(bundleType) {
+            // Remove previous selections
+            document.querySelectorAll('.course-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Select current bundle
+            event.target.classList.add('selected');
+            
+            const prices = {
+                'starter': 99,
+                'complete': 149
+            };
+            
+            selectedBundle = { type: bundleType, price: prices[bundleType] };
+            
+            const bundleBtn = document.getElementById('bundle-btn');
+            bundleBtn.style.display = 'inline-block';
+            bundleBtn.onclick = () => showPurchaseModal(bundleType, prices[bundleType]);
+        }
+
+        function showPurchaseModal(courseType, price) {
+            const courseNames = {
+                'beginner': 'ШІ для початківців',
+                'chatgpt': 'ChatGPT Майстер',
+                'creative': 'ШІ для творчості',
+                'starter': 'Стартовий пакет',
+                'complete': 'Повний пакет'
+            };
+            
+            alert(`Перехід до оплати курсу "${courseNames[courseType]}" 💳\n\nВартість: $${price}\n\n✨ У реальному проекті тут буде інтегровано платіжний шлюз (Stripe, PayPal, LiqPay тощо)`);
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 1s ease-in forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.course-card, .feature-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add hover effects for course cards
+        document.querySelectorAll('.course-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Mobile menu optimization
+        if (window.innerWidth <= 768) {
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.style.width = '100%';
+                btn.style.maxWidth = '280px';
+            });
+        }
+    </script>
+</body>
+</html>
